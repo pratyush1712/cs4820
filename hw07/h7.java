@@ -22,7 +22,7 @@ class Main {
     static int[] cap; // cap[j] is the capacity of edge with id j; backwards edges are added at graph
                       // initialization directly after forwards edges. not modified after init
     static int[] rescap; // rescap[j] is the residual capacity of edge with id j. use for debugging
-    // static File file = new File("D:\\cs4820\\hw06\\test1.txt");
+    // static File file = new File("D:\\cs4820\\hw07\\test1.txt");
 
     public static void main(String[] args) {
 
@@ -53,6 +53,7 @@ class Main {
             // }
             // }
         } catch (IOException e) {
+            System.err.printf(e.toString());
             System.err.printf("Got an IO exception\n");
         }
         int numEdges = 0;
@@ -78,11 +79,15 @@ class Main {
                             numEdges++;
                             // System.out.println(person + " " + value + " " + color);
                         }
-                        for (int person21 = person; person21 <= person + 1; person21++) {
-                            int person2 = person21;
-                            if (person21 == friends) {
-                                person2 = 0;
-                            }
+                        int[] persons_to_check = (((person + 1) % (friends)) != person)
+                                ? new int[] { person, ((person + 1) % (friends)) }
+                                : new int[] { person };
+                        // for (int person21 = person; person21 <= person + 1; person21++) {
+                        // int person2 = person21;
+                        // if (person21 == friends) {
+                        // person2 = 0;
+                        // }
+                        for (int person2 : persons_to_check) {
                             int value2 = value;
                             for (int color2 = 0; color2 < colors; color2++) {
                                 if (cards[person2][value2][color2] != 0) { // it means there exist at least one of
@@ -96,7 +101,7 @@ class Main {
                                         edge_tails_new.add(find_index(person2, value2, color2, 0)); // from 1 to 0
                                         edge_caps_new.add(Integer.MAX_VALUE); // edge of capacity infinty between
                                                                               // different
-                                        // nodes
+                                                                              // nodes
                                     } else { // if same card then
                                         edge_heads_new.add(find_index(person, value, color, 0));
                                         edge_tails_new.add(find_index(person2, value2, color2, 1)); // from 0 to 1
@@ -173,11 +178,8 @@ class Main {
         ids_final = ids_rough.stream().map(u -> u.toArray(new Integer[0])).toArray(Integer[][]::new);
         rescap = capacities_rough.stream().mapToInt(Integer::intValue).toArray();
         cap = capacities_rough.stream().mapToInt(Integer::intValue).toArray();
-        if (friends == 1) {
-            System.out.println(fordFulkerson() / 2);
-        } else {
-            System.out.println(fordFulkerson());
-        } // also populates rescap, if you need it for debugging!
+        System.out.println(fordFulkerson());
+        // also populates rescap, if you need it for debugging!
     }
 
     /**
