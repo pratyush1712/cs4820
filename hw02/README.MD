@@ -8,7 +8,7 @@ The algorithm should run in $O(m\log n)$ time where $n$ is the number of residen
 
 ## Data Structures Used:
 
-**Union-Find**:
+**Union-Find**: A data structure used to create disjoint sets, find the set of an element, and combine two sets.
 
 Time complecities:
 
