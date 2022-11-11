@@ -9,8 +9,8 @@ are not allowed. In particular, the input to the problem has an additional set $
 A matching M is a stable matching with forbidden pairs (SMWFP) for this instance if:
 
 - $M\cap F=\Phi$ (M has no forbidden pairs), and
-- there is no pair $(h,\;r)$ such that
-  - $(h,\;r)\not\in F$ and,
+- there is no pair $(h,r)$ such that
+  - $(h,r)\not\in F$ and,
   - $h$ is unmatched or prefers $r$ to its current match in $M$ and,
   - $r$ is unmatched or prefers $h$ to its current match in $M$
 

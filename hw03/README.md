@@ -9,4 +9,4 @@ that each piece has at least $k$ squares with raisins.
 
 ## Run Time Requirements:
 
-The algorithm should run in $O(n^3 m^3)$ time where $n,\; m$ are the dimensions of the rectangle.
+The algorithm should run in $O(n^3 m^3)$ time where $n, m$ are the dimensions of the rectangle.
