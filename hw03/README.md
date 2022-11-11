@@ -1,4 +1,4 @@
-# Problem Description (Dynamic Programming - Max pieces of chocolates with raisins)
+# Problem Description (Dynamic Programming - Max Pieces of Chocolates with Raisins)
 
 A kindergarten teacher bought a big grid-shaped mold to use for making chocolate. He believes raisins are very healthy, so he insists on using raisins in the chocolate, and wants to divide the chocolate between his students so every kid gets a piece with raisins. Luckily, he kept track of which squares in the chocolate mold have raisins. He needs to figure out how to break the bar down into pieces such that each piece contains at least $k$ squares with raisins.
 
