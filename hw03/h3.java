@@ -15,6 +15,14 @@ class Main {
     static int toCheck;
     static int[][][][] numRaisinsMatrix;
 
+    /**
+     * It creates a 4D matrix of size rows x cols x rows x cols and initializes all
+     * elements to -1
+     * 
+     * @param rows number of rows in the matrix
+     * @param cols number of columns in the matrix
+     * @return A 4D array of ints.
+     */
     static int[][][][] createSegmentMatrix(int rows, int cols) {
         int[][][][] matrix = new int[rows][cols][rows][cols];
         for (int i = 0; i < rows; i++) {
@@ -29,6 +37,18 @@ class Main {
         return matrix;
     }
 
+    /**
+     * It takes in the coordinates of the top left and bottom right corners of a
+     * rectangle, and returns
+     * the maximum number of segments that can be made in that rectangle
+     * 
+     * @param a    starting row
+     * @param b    the number of rows in the matrix
+     * @param c    number of columns
+     * @param d    number of columns
+     * @param main the main matrix
+     * @return The maximum number of segments that can be made in the given matrix.
+     */
     static int findMax(int a, int b, int c, int d, int[] main) {
         if (c < a || d < b) {
             return -1;
@@ -103,7 +123,7 @@ class Main {
         }
     }
 
-    // static File file = new File("D:\\cs4820\\hw03\\test.txt");
+    static File file = new File("D:\\cs4820\\hw03\\test.txt");
 
     public static void main(String[] args) throws NumberFormatException, IOException {
         // BufferedReader br = new BufferedReader(new FileReader(file));

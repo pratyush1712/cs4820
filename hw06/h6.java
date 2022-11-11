@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 class Main {
@@ -22,14 +21,13 @@ class Main {
     static int[] cap; // cap[j] is the capacity of edge with id j; backwards edges are added at graph
                       // initialization directly after forwards edges. not modified after init
     static int[] rescap; // rescap[j] is the residual capacity of edge with id j. use for debugging
-    // static File file = new File("D:\\cs4820\\hw07\\test1.txt");
+
+    static File file = new File("D:\\cs4820\\hw06\\test1.txt");
 
     public static void main(String[] args) {
-
-        // sample code to read inputs
+        // reading in inputs
         try {
-            // BufferedReader reader = new BufferedReader(new FileReader(file));
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String[] dim = reader.readLine().split(" ");
             friends = Integer.parseInt(dim[0]);
             values = Integer.parseInt(dim[1]);
@@ -44,14 +42,7 @@ class Main {
                     cards[friend][value - 1][color - 1]++;
                 }
             }
-            // for (int person = 0; person < friends; person++) {
-            // for (int value = 0; value < values; value++) {
-            // for (int color = 0; color < colors; color++) {
-            // System.out.println(person + " " + value + " " + color + ": " +
-            // cards[person][value][color]);
-            // }
-            // }
-            // }
+            reader.close();
         } catch (IOException e) {
             System.err.printf(e.toString());
             System.err.printf("Got an IO exception\n");
@@ -77,31 +68,21 @@ class Main {
                             edge_caps_new.add(Integer.MAX_VALUE); // edge of capacity infinty between different
                             // nodes
                             numEdges++;
-                            // System.out.println(person + " " + value + " " + color);
                         }
                         int[] persons_to_check = (((person + 1) % (friends)) != person)
                                 ? new int[] { person, ((person + 1) % (friends)) }
                                 : new int[] { person };
-                        // for (int person21 = person; person21 <= person + 1; person21++) {
-                        // int person2 = person21;
-                        // if (person21 == friends) {
-                        // person2 = 0;
-                        // }
                         for (int person2 : persons_to_check) {
                             int value2 = value;
                             for (int color2 = 0; color2 < colors; color2++) {
                                 if (cards[person2][value2][color2] != 0) { // it means there exist at least one of
-                                                                           // this
-                                                                           // valid card
+                                                                           // this valid card
                                     if (!(color2 == color && person2 == person)) { // we will handle same color
-                                                                                   // differently, so chill out for
-                                                                                   // now
-                                                                                   // System.out.println(edge_heads_new.toString());
+                                                                                   // differently, so chill out for now
                                         edge_heads_new.add(find_index(person, value, color, 1));
                                         edge_tails_new.add(find_index(person2, value2, color2, 0)); // from 1 to 0
                                         edge_caps_new.add(Integer.MAX_VALUE); // edge of capacity infinty between
-                                                                              // different
-                                                                              // nodes
+                                                                              // different nodes
                                     } else { // if same card then
                                         edge_heads_new.add(find_index(person, value, color, 0));
                                         edge_tails_new.add(find_index(person2, value2, color2, 1)); // from 0 to 1
@@ -113,7 +94,6 @@ class Main {
                             }
                             // now adding edges between nodes of card value + 1, and same card color
                             value2++;
-                            // System.out.println(value + " " + value2);
                             if (value2 != values) {
                                 if (cards[person2][value2][color] != 0) {
                                     edge_heads_new.add(find_index(person, value, color, 1));
@@ -127,19 +107,10 @@ class Main {
                 }
             }
         }
-        // System.out.println(edge_heads_new);
-        // System.out.println(edge_tails_new);
-        // System.out.println(edge_caps_new);
-        // System.out.println(numEdges);
-        // sample code to make a graph in expected format
         int num_vertices = 2 * friends * values * colors + 2;// 4;
         srcIndex = 0;
         sinkIndex = (friends - 1) * (values * colors * 2) + (values - 1) * (colors * 2) + (colors - 1) * 2 + 2 + 1;
         int num_edges = numEdges;
-        // these are hard-coded into arrays only because it's easier to read off the
-        // original graph.
-        // you'll probably want to generate the arraylists on the fly in your
-        // implementation without intermediate arrays.
         int[] edge_heads = edge_heads_new.stream().mapToInt(Integer::intValue).toArray();
         int[] edge_tails = edge_tails_new.stream().mapToInt(Integer::intValue).toArray();
         int[] edge_caps = edge_caps_new.stream().mapToInt(Integer::intValue).toArray();
@@ -171,15 +142,11 @@ class Main {
         // backtrack should have length 2 * n
         backtrack2 = new int[ids_rough.size() * 2];
 
-        // convert ArrayLists to arrays. instead of doing this you could replace the
-        // arry indexing in dfs, F-F with calls to get and set, but initial experiments
-        // suggest that this is faster for large graphs
         dests_final = dests_rough.stream().map(u -> u.toArray(new Integer[0])).toArray(Integer[][]::new);
         ids_final = ids_rough.stream().map(u -> u.toArray(new Integer[0])).toArray(Integer[][]::new);
         rescap = capacities_rough.stream().mapToInt(Integer::intValue).toArray();
         cap = capacities_rough.stream().mapToInt(Integer::intValue).toArray();
         System.out.println(fordFulkerson());
-        // also populates rescap, if you need it for debugging!
     }
 
     /**
@@ -244,6 +211,17 @@ class Main {
         return false; // no s-t path found
     }
 
+    /**
+     * Given a friend index, a value, a color, and a node index, return the index of
+     * the corresponding variable in a non-existent array of size 2*n*m*k
+     * 
+     * @param friend_index the index of the friend in the friends array
+     * @param value        the value of the card
+     * @param color        the color index of the card
+     * @param node_index   0 or 1, depending on whether the node is the first or
+     *                     second node in the edge
+     * @return The index of the node in the array.
+     */
     public static int find_index(int friend_index, int value, int color, int node_index) {
         return friend_index * (values * colors * 2) + value * (colors * 2) + color * (2) + node_index + 1;
     }

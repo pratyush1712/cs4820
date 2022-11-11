@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,13 +9,13 @@ class Main {
   // declaring nodes and edges
   static int nodes;
   static int numEdges;
-  
+
   // each component: parent, size
   static ArrayList<int[]> componentsArray = new ArrayList<int[]>();
-  
+
   // edges
   static ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
-  
+
   // selected edges
   static ArrayList<ArrayList<Integer>> selectedEdges = new ArrayList<ArrayList<Integer>>();
 
@@ -26,19 +25,21 @@ class Main {
     }
     return new int[] { nodeIndex, componentsArray.get(nodeIndex)[1] };
   }
+
   static File file = new File("D:\\cs4820\\hw02\\test6.txt");
+
   public static void main(String[] args) throws NumberFormatException, IOException {
     BufferedReader br = new BufferedReader(new FileReader(file));
-    
+
     nodes = Integer.parseInt(br.readLine());
     numEdges = Integer.parseInt(br.readLine());
-    
-    // reading in number of nodes    
+
+    // reading in number of nodes
     for (int i = 0; i < nodes; i++) {
-      int[] node = new int[] {-1, 1}; // initially parent: -1, size: 1
+      int[] node = new int[] { -1, 1 }; // initially parent: -1, size: 1
       componentsArray.add(node);
     }
-    
+
     // reading in edges
     for (int i = 0; i < numEdges; i++) {
       String[] line = br.readLine().split(" ");
@@ -53,7 +54,6 @@ class Main {
     edges.sort((a, b) -> {
       return a.get(2) - b.get(2);
     });
-    //System.out.println(edges);
 
     br.close();
     for (int i = 0; i < numEdges; i++) {
@@ -74,7 +74,7 @@ class Main {
         }
       }
     }
-    ArrayList<Integer> finalResp = new ArrayList<Integer>();    
+    ArrayList<Integer> finalResp = new ArrayList<Integer>();
     for (int i = 0; i < nodes; i++) {
       if (componentsArray.get(i)[0] == -1) {
         finalResp.add(componentsArray.get(i)[1]);
