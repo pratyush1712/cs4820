@@ -4,13 +4,13 @@ In this problem we consider the classical Kruskal’s minimum-cost spanning tree
 
 ## Run Time Requirements:
 
-The algorithm should run in $O(m\log n)$ time where $n$ is the number of residences/hospitals.
+The algorithm should run in $O(m\log n)$ time where $n$ is the number of nodes and $m$ is the number of edges.
 
 ## Data Structures Used:
 
 **Union-Find**: A data structure used to create disjoint sets, find the set of an element, and combine two sets.
 
-Time complecities:
+Time complexities:
 
 - **Find**: $O(\log n)$
 - **Make**: $O(n)$
