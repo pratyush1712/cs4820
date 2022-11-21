@@ -15,4 +15,4 @@ The algorithm should run in $O(n^3 m^3 k^5)$ time where $n, m, k$ are the number
 
 ## Space Time Requirements:
 
-The algorithm should consume less than $O(2*n m k)$ amount of memory. The given algorithm consumes $O(nmk)$ amount of memory (**_better than the course staff's solutions!!!_**)
+The algorithm should consume less than $O(2*n m k)$ amount of memory. The given algorithm consumes $O(nmk)$ amount of memory (**better than the course staff's solutions!!**)
